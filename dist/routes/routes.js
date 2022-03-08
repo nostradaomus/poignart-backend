@@ -20,7 +20,6 @@ const pinata_1 = require("../utils/pinata");
 const upload = (0, multer_1.default)({ dest: 'contracts/uploads/' });
 const ROUTES = express_1.default.Router();
 ROUTES.get('creator/mint', upload.single('image'), (req, res) => {
-    // @ts-ignore
     (0, pinata_1.uploadToPinataAndCallContract)(req.body.address, req.file.filename);
     res.send('success');
 });

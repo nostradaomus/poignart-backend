@@ -8,10 +8,14 @@ const upload = multer({ dest: 'contracts/uploads/' });
 
 const ROUTES = express.Router();
 
+interface MulterRequest extends Request {
+  file: any;
+}
+
 ROUTES.get(
   'creator/mint',
   upload.single('image'),
-  (req: Request, res: Response) => {
+  (req: MulterRequest, res: Response) => {
     uploadToPinataAndCallContract(req.body.address, req.file.filename);
     res.send('success');
   }
