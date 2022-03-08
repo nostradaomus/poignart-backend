@@ -1,7 +1,8 @@
-const FormData = require('form-data');
-const fs = require('fs');
+import FormData from 'form-data';
+import axios from 'axios';
+import fs from 'fs';
 
-const postToPinata = (data) => {
+export const postToPinata = (data: any) => {
   return axios
     .post(process.env.PINATA_URL, data, {
       headers: {
@@ -10,25 +11,26 @@ const postToPinata = (data) => {
         pinata_secret_api_key: process.env.PINATA_SECRET_KEY
       }
     })
-    .then(function (response) {
-      var hash = response.data['IpfsHash'];
+    .then(function (response: any) {
+      const hash = response.data.IpfsHash;
       console.log('success, ipfsh hash: ', hash);
       return 'success';
     })
-    .catch(function (error) {
+    .catch(function (error: Error) {
       console.log(error);
       return null;
     });
 };
 
-const uploadToPinataAndCallContract = (address, filename) => {
+export const uploadToPinataAndCallContract = (
+  address: string,
+  filename: string
+) => {
   const metadata = JSON.stringify({
-    name: address + '-nft.png'
+    name: `${address}-nft.png`
   });
-  let data = new FormData();
+  const data = new FormData();
   data.append('pinataMetadata', metadata);
-  data.append('file', fs.createReadStream('./contracts/uploads/' + filename));
+  data.append('file', fs.createReadStream(`./contracts/uploads/${filename}`));
   postToPinata(data);
 };
-
-module.exports = { postToPinata, uploadToPinataAndCallContract };

@@ -6,8 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const apollo_server_express_1 = require("apollo-server-express");
 const cors_1 = __importDefault(require("cors"));
-const create_1 = __importDefault(require("./routes/create"));
-const update_1 = __importDefault(require("./routes/update"));
+const routes_1 = __importDefault(require("./routes/routes"));
 const typedefs_1 = require("./schema/typedefs");
 const resolvers_1 = require("./schema/resolvers");
 const auth_1 = require("./middlewares/auth");
@@ -25,11 +24,9 @@ const createServer = () => {
     });
     server.applyMiddleware({ app });
     // ---------- CREATE ROUTES ----------
-    app.use('/create', auth_1.validateRequest, create_1.default);
-    // ---------- UPDATE ROUTES ----------
-    app.use('/update', auth_1.validateRequest, update_1.default);
+    app.use('/create', auth_1.validateRequest, routes_1.default);
     // ---------- ROOT REQUEST ----------
-    app.get('/', (req, res) => res.json('Welcome to Dungeon Master!'));
+    app.get('/', (req, res) => res.json('Puck Futin!'));
     return app;
 };
 exports.default = createServer;

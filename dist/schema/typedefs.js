@@ -3,65 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.typeDefs = void 0;
 const apollo_server_express_1 = require("apollo-server-express");
 exports.typeDefs = (0, apollo_server_express_1.gql) `
-  type Consultation {
+  type Artist {
     _id: ID!
-    contact_name: String!
-    contact_email: String!
-    contact_bio: String!
-    contact_discord: String
-    contact_telegram: String
-    contact_twitter: String
-    contact_github: String
-    project_name: String!
-    project_link: String
-    project_type: String!
-    project_specs: String!
-    project_desc: String!
-    services_req: [String!]!
-    desired_delivery: String
-    budget: String!
-    delivery_priorities: String!
-    additional_info: String!
-    submission_type: String!
-    submission_hash: String
-    consultation_hash: String
-    raid: Raid
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type Application {
-    _id: ID!
-    name: String!
-    email_address: String!
-    discord_handle: String!
-    telegram_handle: String
-    github_handle: String
-    eth_address: String!
-    ens_name: String
-    introduction: String!
-    learning_goals: String!
-    primary_skills: [String!]!
-    secondary_skills: [String!]!
-    skill_type: String!
-    passion: String!
-    favorite_media: String!
-    crypto_thrills: String!
-    why_raidguild: String!
-    dao_familiarity: String!
-    availability: String!
-    crypto_exp: String!
-    comments: String!
-    handbook_read: Boolean!
-    pledge_readiness: Boolean!
-    referred_by: Member
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type Member {
-    _id: ID!
-    legacy_id: String
     name: String
     email_address: String!
     discord_handle: String!
@@ -69,94 +12,39 @@ exports.typeDefs = (0, apollo_server_express_1.gql) `
     github_handle: String
     eth_address: String!
     ens_name: String
-    guild_class: String!
-    primary_skills: [String!]!
-    secondary_skills: [String!]!
-    membership_date: String!
-    is_raiding: Boolean!
-    championed_by: Member
-    application: Application
+    created_nfts: [Token!]
     createdAt: String!
     updatedAt: String!
   }
 
-  type RaidLegacy {
-    airtable_id: ID
-    escrow_index: Int
-    locker_hash: String
-  }
-
-  type Raid {
+  type Token {
     _id: ID!
-    raid_name: String!
-    status: String!
-    category: String!
-    cleric: Member
-    roles_required: [String!]
-    raid_party: RaidParty
-    invoice_address: String
-    start_date: String
-    end_date: String
-    comments: [Comment!]
-    consultation: Consultation
-    related_raids: [Raid!]
-    portfolio: Portfolio
-    legacy: RaidLegacy
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type Portfolio {
-    _id: ID!
-    project_name: String!
-    project_desc: String
-    category: String
-    roles: [String!]
-    case_study: String
-    repo_link: String
-    result_link: String
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type RaidParty {
-    _id: ID!
-    members: [Member!]!
-    raid: Raid!
-    createdAt: String!
-    updatedAt: String!
-  }
-
-  type Comment {
-    _id: ID!
-    comment: String!
-    commented_by: Member!
-    commented_raid: Raid!
+    token_id: Number!
+    token_uri: String!
+    min_price: String!
+    created_by: Artist!
+    signature: String!
+    minter_address: String
+    minted_at: String
     createdAt: String!
     updatedAt: String!
   }
 
   type Query {
-    consultations: [Consultation]
-    applications: [Application]
-    members: [Member]
-    raids: [Raid]
-    portfolios: [Portfolio]
-    raidparties: [RaidParty]
-    comments: [Comment]
+    artists: [Artist]
+    tokens: [Token]
 
-    consultation(_id: String): Consultation
-    application(_id: String): Application
-    member(filters: MemberFilter): Member
-    raid(_id: String): Raid
-    raidparty(_id: String): RaidParty
-    portfolio(_id: String): Consultation
-    comment(_id: String): Comment
+    artist(filters: ArtistFilter): Artist
+    token(filters: TokenFilter): Token
   }
 
-  input MemberFilter {
+  input ArtistFilter {
     _id: String
     eth_address: String
-    legacy_id: String
+  }
+
+  input TokenFilter {
+    _id: String
+    token_id: Number
   }
 `;
