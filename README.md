@@ -2,7 +2,7 @@
 
 ## To Start
 
-1. npm install
+1. yarn install
 2. docker-compose build --no-cache
 3. docker-compose up (db only in docker image)
-4. npm start
+4. yarn start
