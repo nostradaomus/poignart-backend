@@ -17,7 +17,7 @@ export const typeDefs = gql`
 
   type Token {
     _id: ID!
-    token_id: Number!
+    token_id: Int!
     token_uri: String!
     min_price: String!
     created_by: Artist!
@@ -43,6 +43,6 @@ export const typeDefs = gql`
 
   input TokenFilter {
     _id: String
-    token_id: Number
+    token_id: Int
   }
 `;

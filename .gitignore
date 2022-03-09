@@ -36,3 +36,4 @@ yarn-error.log*
 /data
 
 .vscode
+*.sw[a-z]

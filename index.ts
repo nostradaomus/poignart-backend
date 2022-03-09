@@ -1,18 +1,13 @@
-import mongoose from 'mongoose';
+import mongoose, { ConnectOptions } from 'mongoose';
 import createServer from './server';
 
 import { CONFIG } from './config';
 
-const MONGO_URI =
-  CONFIG.ENVIRONMENT === 'production'
-    ? CONFIG.MONGODB_URI_PRODUCTION
-    : CONFIG.MONGODB_URI_DEVELOPMENT;
-
 mongoose
-  .connect(MONGO_URI, {
+  .connect(CONFIG.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  })
+  } as ConnectOptions)
   .then(() => {
     const app = createServer();
     app.listen(CONFIG.PORT, () =>

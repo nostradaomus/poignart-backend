@@ -24,19 +24,9 @@ export const validateRequest = (
   res: Response,
   next: NextFunction
 ): any => {
-  if (
-    CONFIG.ENVIRONMENT === 'production' ||
-    CONFIG.ENVIRONMENT === 'development'
-  ) {
-    if (!verifyToken(req)) {
-      res.status(401).send('Unauthorized');
-    } else {
-      next();
-    }
-  } else if (
-    CONFIG.ENVIRONMENT !== 'production' &&
-    CONFIG.ENVIRONMENT !== 'development'
-  ) {
-    res.status(401).send('Invalid environment');
+  if (!verifyToken(req)) {
+    res.status(401).send('Unauthorized');
+  } else {
+    next();
   }
 };
