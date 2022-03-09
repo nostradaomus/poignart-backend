@@ -28,7 +28,7 @@ const createServer = (): Application => {
   app.use('/create', validateRequest, ROUTER);
 
   // ---------- ROOT REQUEST ----------
-  app.get('/', (req: Request, res: Response) => res.json('Puck Futin!'));
+  app.get('/', (_req: Request, res: Response) => res.json('Puck Futin!'));
 
   return app;
 };
